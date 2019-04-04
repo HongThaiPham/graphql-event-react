@@ -1,3 +1,21 @@
+html {
+  height: 100%;
+  width: 100%;
+  background-color: var(--bg-color);
+
+  --navbar-color: #1abc9c;
+  --navbar-link-color: #ecf0f1;
+  --navbar-link-active: #6c5ce7;
+  --navbar-link-hover: #b2bec3;
+  --bg-color: #ecf0f1;
+  --text-color-light: #ecf0f1;
+}
+
+html[data-theme="dark"] {
+  --navbar-color: #16a085;
+  --bg-color: #34495e;
+}
+
 body {
   margin: 0;
   padding: 0;
