@@ -6,7 +6,8 @@ const MyModal = ({
   canCancel,
   canConfirm,
   onCancel,
-  onConfirm
+  onConfirm,
+  confirmText
 }) => (
   <div className="modal">
     <header className="modal__header">
@@ -21,7 +22,7 @@ const MyModal = ({
       )}
       {canConfirm && (
         <button className="btn" onClick={onConfirm}>
-          Confirm
+          {confirmText ? confirmText : "Confirm"}
         </button>
       )}
     </section>
