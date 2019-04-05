@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Auth.scss";
 import httpCall from "../lib/httpCall";
-const AuthPage = () => {
+
+import AuthContext from "../context/auth-context";
+
+const AuthPage = props => {
   const [email, setEmail] = useState("test2@gmail.com");
   const [password, setPassword] = useState("tester");
   const [isLogin, setLogin] = useState(true);
+  const context = useContext(AuthContext);
 
   const submitHandler = async e => {
     e.preventDefault();
-    console.log({ email, password });
     if (email.trim().length === 0 || password.trim().length === 0) {
       return;
     }
@@ -40,7 +43,9 @@ const AuthPage = () => {
       if (result.status !== 200 && result.status !== 201) {
         throw new Error("Failed!");
       }
-      console.log(result);
+      if (result.data.data.login.token) {
+        context.login(result.data.data.login);
+      }
     } catch (error) {
       console.log(error);
     }
