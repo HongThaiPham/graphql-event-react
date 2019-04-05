@@ -51,13 +51,16 @@ const BookingPage = () => {
   const cancelBookingHandler = async bookingId => {
     const requestBody = {
       query: `
-        mutation {
-          cancelBooking(bookingId: "${bookingId}") {
+        mutation CancelBooking($id: ID!) {
+          cancelBooking(bookingId: $id) {
             _id
             title
           }
         }
-      `
+      `,
+      variables: {
+        id: bookingId
+      }
     };
 
     setLoading(true);
