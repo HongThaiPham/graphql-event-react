@@ -20,10 +20,15 @@
 
 .main-navigation__items {
   margin: 1.5rem;
-  a {
+  a,
+  button {
     text-decoration: none;
     color: var(--navbar-link-color);
-
+    padding: 0.25rem 0.5rem;
+    border: none;
+    font: inherit;
+    background: transparent;
+    cursor: pointer;
     &:hover,
     &:active {
       color: var(--navbar-link-hover);
@@ -32,11 +37,13 @@
       color: var(--navbar-link-active);
     }
   }
+
   ul {
     display: flex;
-    margin: 0 0 0 1.5rem;
+    margin: 0;
     padding: 0;
     list-style: none;
+    align-items: center;
     li {
       margin: 0 1rem;
     }
