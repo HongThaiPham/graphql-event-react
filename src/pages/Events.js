@@ -114,7 +114,39 @@ const EventsPage = () => {
     setSelectedEvent(selected);
   };
 
-  const bookEventHandler = () => {};
+  const bookEventHandler = async () => {
+    if (!context.token) {
+      setSelectedEvent(null);
+      return;
+    }
+    const requestBody = {
+      query: `
+        mutation {
+          bookEvent(eventId: "${selectedEvent._id}") {
+            _id
+            createdAt
+            updatedAt
+          }
+        }
+      `
+    };
+
+    try {
+      const result = await httpCall.post("", JSON.stringify(requestBody), {
+        headers: {
+          Authorization: `Bearer ${context.token}`
+        }
+      });
+
+      if (result.status !== 200 && result.status !== 201) {
+        throw new Error("Failed!");
+      }
+      console.log(result.data.data);
+      setSelectedEvent(null);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <React.Fragment>
@@ -162,7 +194,7 @@ const EventsPage = () => {
           canConfirm
           onCancel={modalCancelHandler}
           onConfirm={bookEventHandler}
-          confirmText="Book this event">
+          confirmText={context.token ? "Book" : "Confirm"}>
           <h1>{selectedEvent.title}</h1>
           <h2>{new Date(selectedEvent.date).toLocaleDateString()}</h2>
           <p> {selectedEvent.description}</p>
